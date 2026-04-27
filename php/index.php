@@ -8,13 +8,9 @@
 </head>
 
 <body>
-    <h1>Pàgina inicial</h1>
-    <p>Aquesta pàgina inclou codi php</p>
-    <?php
-    echo "<h2>Hola, món!</h2>";
-    echo "<p>Hora actual: " . date("H:i:s") . "</p>";
-    ?>
-    <h2>Variables</h2>
+    <h1>GI3P</h1>
+    <h1>Institut Pedralbes</h1>
+    <p class="text-center">Tens un problema? Digueu-nos</p>
     <p>Les variables s'han d'utilitzar per a definir la cadena de connexió independentment del codi</p>
     <?php
     $v1 = getenv('VAR1') ?: 'Ups, variable no definida';
@@ -23,11 +19,9 @@
     echo "<p>El valor de la variable d'entorn VAR2 és: <strong>$v2</strong></p>";
     ?>
     <div id="menu">
-        <hr>
-        <p><a href="index.php">Portada</a> </p>
-        <p><a href="llistar.php">Llistar</a></p>
-        <p><a href="crear.php">Crear</a></p>
-        <p><a href="mongo.php">Mongo</a></p>
+            <button type="submit">Crear incidencia</button>
+            <button type="submit">Info incidencia</button>
+            <button type="submit">Temps consumit per departament</button>
     </div>
     <p>Fi de la pàgina</p>
 </body>
