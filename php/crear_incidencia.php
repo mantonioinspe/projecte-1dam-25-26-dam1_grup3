@@ -11,7 +11,7 @@ require_once 'connexio.php';
  */
 function crear_incidencia($conn)
 {
-    // Obtenir el nom de la casa del formulari
+    // Obtenir el noms del formulari
     $id_departament = $_POST['id_departament'];
     $data_fin = $_POST['data_fin'];
     $prioridad = $_POST['prioridad'];
@@ -38,7 +38,7 @@ function crear_incidencia($conn)
     if ($id_departament == 'id_departament'){ 
         $sql = "INSERT INTO incidencia (data_fin, prioridad, descripcio) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);  //La variable $conn la tenim per haver inclòs el fitxer connexio.php
-        $stmt->bind_param("sss", $id_departament, $data_fin, $prioridad, $descripcio);
+        $stmt->bind_param("sss", $data_fin, $prioridad, $descripcio);
     } else {
         echo "<p class='info'>No es pot assignar una incidencia en departament que no existeix.</p>";
     }
@@ -70,10 +70,15 @@ function crear_incidencia($conn)
         //Tanquem el php per poder escriure el codi HTML de forma més còmoda.
         ?>
         <form method="POST" action="crear_incidencia.php">
-                <label for="nom_dept">Depart</label>
+                <label for="nom_dept">ID departament</label>
                 <input type="text" id="id_departament" name="id_departament" placeholder="XXXXXXXXXX">
+                <label for="nom_dept">Depart</label>
+                <input type="text" id="nom_dept" name="nom_dept" placeholder="XXXXXXXXXX">
                 <label for="descripcio">Descripcio</label>
                 <textarea name="descripcio" placeholder="INFO">
+                <label for="prioridad">Prioritat</label>
+                <input type="text" id="prioritat" name="prioritat" placeholder="XXXXX">
+                <button type="submit"><a href="">Crear</a></button>
         </form>
         <?php
         //Tanquem l'else
