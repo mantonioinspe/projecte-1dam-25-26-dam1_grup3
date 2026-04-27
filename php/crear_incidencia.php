@@ -12,13 +12,9 @@ require_once 'connexio.php';
 function crear_incidencia($conn)
 {
     // Obtenir el nom de la casa del formulari
-    $id_departament = $_POST['id_departament'];
-    $id_tipo = $_POST['id_tipo'];
     $data_fin = $_POST['data_fin'];
-    $data_inici = $_POST['id_tecnic'];
     $prioridad = $_POST['prioridad'];
     $descripcio = $_POST['descripcio'];
-    $id_tecnic = $_POST['id_tecnic'];
 
     // Comprovar si el nom no està buit
     // Si l'html està ben escrit això no podria passar en els usuaris normals
@@ -30,9 +26,9 @@ function crear_incidencia($conn)
     }
 
     // Preparar la consulta SQL per inserir una nova casa
-    $sql = "INSERT INTO incidencia (id_departament, id_tipo, data_fin, data_inici, prioridad, descripcio, id_tecnic) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO incidencia (data_fin, prioridad, descripcio) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);  //La variable $conn la tenim per haver inclòs el fitxer connexio.php
-    $stmt->bind_param("iididissi", $id_departament ,$id_tipo, $data_fin, $data_inici, $prioridad, $descripcio, $id_tecnic);
+    $stmt->bind_param("sss", $data_fin, $prioridad, $descripcio);
 
     // Executar la consulta i comprovar si s'ha inserit correctament
     if ($stmt->execute()) {
