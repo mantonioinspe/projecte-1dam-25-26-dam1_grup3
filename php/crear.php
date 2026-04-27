@@ -9,7 +9,7 @@ require_once 'connexio.php';
  * @param mixed $conn
  * @return void
  */
-function crear_casa($conn)
+function crear_incidencia($conn)
 {
     // Obtenir el nom de la casa del formulari
     $nom = $_POST['nom'];
