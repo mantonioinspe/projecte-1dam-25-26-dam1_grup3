@@ -25,8 +25,6 @@ function crear_incidencia($conn)
         echo "<p class='error'>La incidencia no pot estar buida.</p>";
         return;
     }
-
-    // Preparar la consulta SQL per inserir una nova casa
     
 
     // Executar la consulta i comprovar si s'ha inserit correctament
