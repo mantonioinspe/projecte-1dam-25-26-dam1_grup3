@@ -22,7 +22,6 @@ services:
     command: /bin/bash -c "composer install --no-interaction --no-plugins --no-scripts && echo WEBSERVER_________UP_________AND_______RUNNIIIIIIING && apache2-foreground"
     environment:
       VAR1: "sóc una pera i estic al docker-compose"
-      VAR2: ${VAR2}
     depends_on:
        - db
 
