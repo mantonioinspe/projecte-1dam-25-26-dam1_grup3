@@ -16,6 +16,9 @@
         <p class="text-center">Tens un problema? Digueu-nos</p>
         <p>Les variables s'han d'utilitzar per a definir la cadena de connexió independentment del codi</p>
     </div>
+    <h2>Com vols accedir?</h2>
+    <button type="submit"><a href="index_client.php">Afectat</a></button>
+    <button type="submit"><a href="index_tecnic.php">Tecnic</a></button>
     <?php
     $v1 = getenv('VAR1') ?: 'Ups, variable no definida';
     $v2 = getenv('VAR2') ?: 'Ups, variable no definida';

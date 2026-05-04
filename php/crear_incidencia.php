@@ -25,6 +25,7 @@ function crear_incidencia($conn)
     $stmt->bind_param("s", $id_departament); 
     $stmt->execute();
     $result = $stmt->get_result();
+    
     if ($row = $result->fetch_assoc()) {
         $nom_dept = $row['nom_dept'];
         echo "Departament trobat: " . $nom_dept;
