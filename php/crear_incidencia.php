@@ -9,6 +9,8 @@ require_once 'connexio.php';
  * @param mixed $conn
  * @return void
  */
+
+// Mostrar todos los errores y advertencias en pantalla
 function crear_incidencia($conn)
 {
     // Obtenir el noms del formulari
@@ -44,7 +46,9 @@ function crear_incidencia($conn)
     $stmt->close();
 
 }
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 ?>
 <!DOCTYPE html>
