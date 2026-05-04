@@ -13,18 +13,10 @@
     <div class = "encabezado">
         <h1 class="text-center">GI3P</h1>
         <h1 class="text-center">Institut Pedralbes</h1>
-        <p class="text-center">Tens un problema? Digueu-nos</p>
-        <p>Les variables s'han d'utilitzar per a definir la cadena de connexió independentment del codi</p>
     </div>
     <h2>Com vols accedir?</h2>
     <button type="submit"><a href="index_client.php">Afectat</a></button>
     <button type="submit"><a href="index_tecnic.php">Tecnic</a></button>
-    <?php
-    $v1 = getenv('VAR1') ?: 'Ups, variable no definida';
-    $v2 = getenv('VAR2') ?: 'Ups, variable no definida';
-    echo "<p>El valor de la variable d'entorn VAR1 és: <strong>$v1</strong> </p>";
-    echo "<p>El valor de la variable d'entorn VAR2 és: <strong>$v2</strong></p>";
-    ?>
     <footer id="menu">
         <table>
             <tr>
