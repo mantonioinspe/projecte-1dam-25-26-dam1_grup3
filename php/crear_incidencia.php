@@ -57,6 +57,8 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/estils.css">
     <title>Crear incidencia</title>
 </head>
 
@@ -71,7 +73,7 @@ error_reporting(E_ALL);
         //Mostrem el formulari per crear una nova casa
         //Tanquem el php per poder escriure el codi HTML de forma més còmoda.
         ?>
-        <!--- <form method="POST" action="crear_incidencia.php">
+        <form method="POST" action="crear_incidencia.php">
                 <label for="nom_dept">ID departament</label>
                 <input type="text" id="id_departament" name="id_departament" placeholder="XXXXXXXXXX" required>
                 <label for="nom_dept">Departament</label>
@@ -81,7 +83,7 @@ error_reporting(E_ALL);
                 <label for="prioridad">Prioritat</label>
                 <input type="text" id="prioritat" name="prioritat" placeholder="XXXXX" required>
                 <div class="form-group"><button class="btn btn-success">Crear</button></div>
-        </form> !--->
+        </form>
         <?php
     }
     ?>
