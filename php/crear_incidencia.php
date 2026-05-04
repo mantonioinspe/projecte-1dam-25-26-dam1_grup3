@@ -19,6 +19,21 @@ function crear_incidencia($conn)
     $prioridad = $_POST['prioridad'];
     $descripcio = $_POST['descripcio'];
 
+    $sql_dept = "SELECT nom FROM DEPARTAMENT WHERE id_departament = ?";
+
+    // Si l'ID és un número enter, fes servir "i" en lloc de "s"
+    $stmt->bind_param("s", $id_departament); 
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $nom_dept = $row['nom_dept'];
+        echo "Departament trobat: " . $nom_dept;
+        $sql = "INSERT INTO incidencia (data_fin, prioridad, descripcio, departament) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);  //La variable $conn la tenim per haver inclòs el fitxer connexio.php
+        $stmt->bind_param("sss", $data_fin, $prioridad, $descripcio);
+    } else {
+        echo "<p class='info'>No es pot assignar una incidencia en departament que no existeix.</p>";
+    }
     // Comprovar si el nom no està buit
     // Si l'html està ben escrit això no podria passar en els usuaris normals
     // Igualment SEMPRE s'ha de comprovar tot al backend ja que no tots els usuaris
@@ -27,24 +42,14 @@ function crear_incidencia($conn)
         echo "<p class='error'>La incidencia no pot estar buida.</p>";
         return;
     }
-    
-
     // Executar la consulta i comprovar si s'ha inserit correctament
     if ($stmt->execute()) {
         echo "<p class='info'>Incidencia creada amb èxit!</p>";
     } else {
         echo "<p class='error'>Error al crear la incidencia: " . htmlspecialchars($stmt->error) . "</p>";
     }
-    if ($id_departament == 'id_departament'){ 
-        $sql = "INSERT INTO incidencia (data_fin, prioridad, descripcio) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);  //La variable $conn la tenim per haver inclòs el fitxer connexio.php
-        $stmt->bind_param("sss", $data_fin, $prioridad, $descripcio);
-    } else {
-        echo "<p class='info'>No es pot assignar una incidencia en departament que no existeix.</p>";
-    }
     // Tancar la declaració i la connexió
     $stmt->close();
-
 }
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
