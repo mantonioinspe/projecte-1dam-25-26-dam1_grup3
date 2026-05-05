@@ -16,21 +16,21 @@ function crear_incidencia($conn)
     // Obtenir el noms del formulari
     $id_departament = $_POST['id_departament'];
     $data_fin = $_POST['data_fin'];
-    $prioridad = $_POST['prioridad'];
+    $prioritat = $_POST['prioritat'];
     $descripcio = $_POST['descripcio'];
 
     $sql_dept = "SELECT nom FROM DEPARTAMENT WHERE id_departament = ?";
 
-    $stmt->bind_param("s", $id_departament); 
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $sentencia->bind_param("s", $id_departament); 
+    $sentencia->execute();
+    $result = $sentencia->get_result();
     
     if ($row = $result->fetch_assoc()) {
         $nom_dept = $row['nom_dept'];
         echo "Departament trobat: " . $nom_dept;
-        $sql = "INSERT INTO incidencia (data_fin, prioridad, descripcio, departament) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO incidencia (data_fin, prioritat, descripcio, departament) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);  //La variable $conn la tenim per haver inclòs el fitxer connexio.php
-        $stmt->bind_param("sss", $data_fin, $prioridad, $descripcio);
+        $stmt->bind_param("sss", $data_fin, $prioritat, $descripcio);
     } else {
         echo "<p class='info'>No es pot assignar una incidencia en departament que no existeix.</p>";
     }
@@ -85,8 +85,10 @@ error_reporting(E_ALL);
                 <input type="text" id="nom_dept" name="nom_dept" placeholder="XXXXXXXXXX" required>
                 <label for="descripcio">Descripcio</label>
                 <textarea placeholder="Descripció" class="form-control" name="descripcio" id="descripcio" cols="30" rows="10" required></textarea>
-                <label for="prioridad">Prioritat</label>
+                <label for="prioritat">Prioritat</label>
                 <input type="text" id="prioritat" name="prioritat" placeholder="XXXXX" required>
+                <label for="data_fin">Data limit</label>
+                <input type="text" id="data_fin" name="data_fin" required placeholder="YYYY-MM-DD">
                 <div class="form-group"><button class="btn btn-success">Crear</button></div>
         </form>
         <?php
