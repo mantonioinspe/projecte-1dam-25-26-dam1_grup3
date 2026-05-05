@@ -21,7 +21,6 @@ function crear_incidencia($conn)
 
     $sql_dept = "SELECT nom FROM DEPARTAMENT WHERE id_departament = ?";
 
-    // Si l'ID és un número enter, fes servir "i" en lloc de "s"
     $stmt->bind_param("s", $id_departament); 
     $stmt->execute();
     $result = $stmt->get_result();
@@ -96,12 +95,6 @@ error_reporting(E_ALL);
     <footer id="menu">
         <table>
             <tr>
-                <td>
-                    <button type="submit" class="form-button"><a href="crear_incidencia.php">Crear incidencia</a></button>
-                </td>
-                <td>
-                    <button type="submit" class="form-button"><a href="detall_incidencia.php">Info incidencia</a></button>
-                </td>
                 <td>
                     <button type="submit" class="form-button"><a href="llistar.php">Temps consumit per departament</a></button>
                 </td>

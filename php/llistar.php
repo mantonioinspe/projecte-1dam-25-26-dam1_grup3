@@ -19,7 +19,7 @@ require_once 'connexio.php';
     <?php
 
     // Consulta SQL per obtenir totes les files de la taula 'cases'
-    $sql = "SELECT id, name FROM cases";
+    $sql = "SELECT idIncidencia, name FROM INCIDENCIA";
     $result = $conn->query($sql);
 
     // Comprovar si hi ha resultats

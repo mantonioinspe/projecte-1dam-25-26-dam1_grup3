@@ -14,9 +14,10 @@
         <h1 class="text-center">GI3P</h1>
         <h1 class="text-center">Institut Pedralbes</h1>
     </div>
-    <h2>Com vols accedir?</h2>
+    <h3>Com vols accedir?</h3>
     <button type="submit"><a href="index_client.php">Afectat</a></button>
     <button type="submit"><a href="index_tecnic.php">Tecnic</a></button>
+    <br>
     <footer id="menu">
         <table>
             <tr>
