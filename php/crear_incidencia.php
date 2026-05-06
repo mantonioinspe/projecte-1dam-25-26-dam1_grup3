@@ -1,60 +1,59 @@
 <?php
 
-//Sempre volem tenir una connexió a la base de dades, així que la creem al principi del fitxer
+// Sempre volem tenir una connexió a la base de dades, així que la creem al principi del fitxer
 require_once 'connexio.php';
 // Un cop inclòs el fitxer connexio.php, ja podeu utilitzar la variable $conn per a fer les consultes a la base de dades.
 
 /**
- * Funció que llegeix els paràmetres del formulari i crea una nova casa a la base de dades.
+ * Funció que llegeix els paràmetres del formulari i crea una nova incidencia a la base de dades.
  * @param mixed $conn
  * @return void
  */
-
-// Mostrar todos los errores y advertencias en pantalla
 function crear_incidencia($conn)
 {
-    // Obtenir el noms del formulari
     $id_departament = $_POST['id_departament'];
+    $nom_dept = $_POST['nom_dept'];
     $data_fin = $_POST['data_fin'];
     $prioritat = $_POST['prioritat'];
     $descripcio = $_POST['descripcio'];
-
-    $sql_dept = "SELECT nom FROM DEPARTAMENT WHERE id_departament = ?";
-
-    $sentencia->bind_param("s", $id_departament); 
-    $sentencia->execute();
-    $result = $sentencia->get_result();
-    
+    $sql_check = "SELECT ID_Departament, Nom FROM DEPARTAMENT WHERE ID_Departament = ?";
+    $stmt_check = $conn->prepare($sql_check);
+    if ($stmt_check === false) {
+        die("Error en preparar la consulta de verificació: " . $conn->error);
+    }
+    $stmt_check->bind_param("s", $id_departament);
+    $stmt_check->execute();
+    $result = $stmt_check->get_result();
     if ($row = $result->fetch_assoc()) {
-        $nom_dept = $row['nom_dept'];
-        echo "Departament trobat: " . $nom_dept;
-        $sql = "INSERT INTO incidencia (data_fin, prioritat, descripcio, departament) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);  //La variable $conn la tenim per haver inclòs el fitxer connexio.php
-        $stmt->bind_param("sss", $data_fin, $prioritat, $descripcio);
+        $nom_dept_bd = $row['Nom'];
+        echo "Departament trobat: " . $nom_dept_bd;
+        $sql = "INSERT INTO INCIDENCIA (ID_Departament, Data_FIN, Prioridad, Descripcio) VALUES (?, ?, ?, ?)";
+        $sentencia = $conn->prepare($sql);
+        if ($sentencia === false) {
+            die("Error en preparar la consulta d'inserció: " . $conn->error);
+        }
+        $sentencia->bind_param("ssss", $id_departament, $data_fin, $prioritat, $descripcio);
     } else {
         echo "<p class='info'>No es pot assignar una incidencia en departament que no existeix.</p>";
-    }
-    // Comprovar si el nom no està buit
-    // Si l'html està ben escrit això no podria passar en els usuaris normals
-    // Igualment SEMPRE s'ha de comprovar tot al backend ja que no tots els usuaris
-    // són "bones persones" i des de les web tools es pot canviar tot el front per exemple.
-    if (empty($nom)) {
-        echo "<p class='error'>La incidencia no pot estar buida.</p>";
+        $stmt_check->close();
         return;
     }
-    // Executar la consulta i comprovar si s'ha inserit correctament
-    if ($stmt->execute()) {
+    $stmt_check->close();
+    if (empty($nom_dept)) {
+        echo "<p class='error'>La incidencia no pot estar buida.</p>";
+        $sentencia->close();
+        return;
+    }
+    if ($sentencia->execute()) {
         echo "<p class='info'>Incidencia creada amb èxit!</p>";
     } else {
-        echo "<p class='error'>Error al crear la incidencia: " . htmlspecialchars($stmt->error) . "</p>";
+        echo "<p class='error'>Error al crear la incidencia: " . htmlspecialchars($sentencia->error) . "</p>";
     }
-    // Tancar la declaració i la connexió
-    $stmt->close();
+    $sentencia->close();
 }
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 ?>
 <!DOCTYPE html>
 <html lang="ca">
@@ -68,28 +67,33 @@ error_reporting(E_ALL);
 </head>
 
 <body>
-    <h1>Crear incidencia</h1>
-    <?php
+    <div class="container mt-4">
+        <h1>Crear incidència</h1>
+        <?php
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Si el formulari s'ha enviatc (mètode POST), cridem a la funció per crear la casa
-        crear_incidencia($conn);
-    } else {
-        //Mostrem el formulari per crear una nova casa
-        //Tanquem el php per poder escriure el codi HTML de forma més còmoda.
-        ?>
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            crear_incidencia($conn);
+        } else {
+            ?>
         <form method="POST" action="crear_incidencia.php">
-                <label for="nom_dept">ID departament</label>
-                <input type="text" id="id_departament" name="id_departament" placeholder="XXXXXXXXXX" required>
-                <label for="nom_dept">Departament</label>
-                <input type="text" id="nom_dept" name="nom_dept" placeholder="XXXXXXXXXX" required>
-                <label for="descripcio">Descripcio</label>
-                <textarea placeholder="Descripció" class="form-control" name="descripcio" id="descripcio" cols="30" rows="10" required></textarea>
-                <label for="prioritat">Prioritat</label>
-                <input type="text" id="prioritat" name="prioritat" placeholder="XXXXX" required>
-                <label for="data_fin">Data limit</label>
-                <input type="text" id="data_fin" name="data_fin" required placeholder="YYYY-MM-DD">
-                <div class="form-group"><button class="btn btn-success">Crear</button></div>
+            <label for="id_departament" class="form-label">ID departament</label>
+            <input type="text" id="id_departament" name="id_departament" placeholder="1, 2, 3" required>
+            <label for="nom_dept" class="form-label">Departament</label>
+            <input type="text" id="nom_dept" name="nom_dept" placeholder="Nom del departament" required>
+            <label for="descripcio" class="form-label">Descripcio</label>
+            <textarea placeholder="Descripció" class="form-control" name="descripcio" id="descripcio" rows="5" required></textarea>
+            <div class="mb-3">
+                    <label for="prioritat" class="form-label">Prioritat</label>
+                    <select class="form-control" name="prioritat" id="prioritat" required>
+                        <option value="Baja">Baja</option>
+                        <option value="Media">Media</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Crítica">Crítica</option>
+                    </select>
+                </div>
+            <label for="data_fin" class="form-label">Data limit</label>
+            <input type="text" id="data_fin" name="data_fin" required placeholder="YYYY-MM-DD">
+                <button class="btn btn-success">Crear</button>
         </form>
         <?php
     }
@@ -104,6 +108,4 @@ error_reporting(E_ALL);
         </table>
     </footer>
 </body>
-
 </html>
-
