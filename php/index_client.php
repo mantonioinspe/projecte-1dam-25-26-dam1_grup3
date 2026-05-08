@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class = "encabezado">
-        <h1 class="text-center">GI3P</h1>
-        <h1 class="text-center">Institut Pedralbes</h1>
+        <h1 class="text-center"><a href="index.php">GI3P</a></h1>
+        <h1 class="text-center"><a href="index.php">Institut Pedralbes</a></h1>
         <p class="text-center">Tens un problema? Digueu-nos</p>
     </div>
     <button><a href="crear_incidencia.php">Crear incidencia</a></button>

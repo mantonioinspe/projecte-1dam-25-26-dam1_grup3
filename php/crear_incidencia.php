@@ -67,6 +67,12 @@ error_reporting(E_ALL);
 </head>
 
 <body>
+    <div class = "encabezado">
+        <div class="nav_menu">
+            <h1 class="text-center"><a href="index.php">GI3P</a></h1>
+            <h1 class="text-center"><a href="index.php">Institut Pedralbes</a></h1>
+        </div>
+        
     <div class="container mt-4">
         <h1>Crear incidència</h1>
         <?php

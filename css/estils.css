@@ -46,13 +46,10 @@ button > a {
 .form-button{
     width: 300px;
 }
-.nav_btn {
-    display: flex;  
-    flex-direction: row;  
-    align-items: flex-end;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: rgb(216, 216, 216);
-    border: 0px;
-    cursor: pointer;
+.nav_menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
 }
