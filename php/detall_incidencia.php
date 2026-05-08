@@ -1,5 +1,6 @@
 <?php
     require_once 'connexio.php';
+    $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     echo "<p>Error de connexió: " . htmlspecialchars($conn->connect_error) . "</p>";
     die("Error de connexió: " . $conn->connect_error);
@@ -9,11 +10,10 @@ function mostrar_incidencia($conn){
     $data_fin = $_POST['data_fin'];
     $prioridad = $_POST['prioridad'];
     $descripcio = $_POST['descripcio'];
-
+    $stmt = $conexion->prepare($sql);
     $sql = "SELECT * FROM incidencia
     ORDER BY prioridad DESC";
-    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $stmt->close();
 }
-$stmt->close();
-
-
+mostrar_incidencia($conn);
