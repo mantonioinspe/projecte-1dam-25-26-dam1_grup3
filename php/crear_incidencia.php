@@ -17,10 +17,8 @@ function crear_incidencia($conn)
     $data_fin = $_POST['data_fin'];
     $prioridad = $_POST['Prioridad'];
     $descripcio = $_POST['Descripcio'];
-
     $sql_check = "SELECT Nom FROM DEPARTAMENT WHERE ID_Departament = ?";
     $stmt_check = $conn->prepare($sql_check);
-
     if ($stmt_check === false) {
         die("Error en preparar la consulta de verificació: " . $conn->error);
     }

@@ -1,5 +1,5 @@
 <?php
-
+    require_once 'connexio.php';
 if ($conn->connect_error) {
     echo "<p>Error de connexió: " . htmlspecialchars($conn->connect_error) . "</p>";
     die("Error de connexió: " . $conn->connect_error);
@@ -12,6 +12,7 @@ function mostrar_incidencia($conn){
 
     $sql = "SELECT * FROM incidencia
     ORDER BY prioridad DESC";
+    $stmt = $conn->prepare($sql);
 }
 $stmt->close();
 
