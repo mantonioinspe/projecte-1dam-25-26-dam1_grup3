@@ -18,7 +18,7 @@ function crear_incidencia($conn)
     $prioridad = $_POST['Prioridad'];
     $descripcio = $_POST['Descripcio'];
 
-    $sql_check = "SELECT ID_Departament, Nom FROM DEPARTAMENT WHERE ID_Departament = ?";
+    $sql_check = "SELECT Nom FROM DEPARTAMENT WHERE ID_Departament = ?";
     $stmt_check = $conn->prepare($sql_check);
 
     if ($stmt_check === false) {
