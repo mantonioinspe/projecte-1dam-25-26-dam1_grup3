@@ -76,6 +76,11 @@ error_reporting(E_ALL);
 </head>
 
 <body>
+    <div class = "encabezado">
+        <div class="nav_menu">
+            <button type="submit" class="nav_btn"><a href="index.html">Pagina principal</a></button>
+        </div>
+        <h1 class="text-center">GI3P</h1>
     <div class="container mt-4">
         <h1>Crear incidència</h1>
         <?php
